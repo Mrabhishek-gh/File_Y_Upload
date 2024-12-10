@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Index</title>
+</head>
+
+<body>
+    <div>
+        <form action="/Image/ImgFileSave" method="post" enctype="multipart/form-data">
+            <table class="table table-bordered">
+                <tr>
+                    <td colspan="2">
+                        <img src="#" alt="preview" id="imagePreview" style="border: 1px solid red; height: 169px; width: 176px; margin: auto; display:
+block;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        choose file
+                    </td>
+                    <td>
+                        <input type="file"  name="Image" value="" onchange="return ShowImagePreview(this)" class="form-control" id="fileupload"
+                               required  />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" name="Submit" value="Upload" class="btn btn-primary" />
+                        <span style="color:green">@ViewBag.Message</span>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script>
+        function ShowImagePreview(input) {
+            debugger;
+            if (input.files && input.files[0]) {
+                var fname = input.files[0].name;
+                var re = /(\.jpg|\.jpeg|\.bmp|\.gif|\.png)$/i;
+                if (!re.exec(fname)) {
+                    alert("Image not supported!");
+                    $("#fileupload").value("");
+                    return false;
+                }
+                else {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#imagePreview').prop('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

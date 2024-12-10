@@ -1,0 +1,32 @@
+﻿
+<input type="file" id="FileUpload1" multiple/>
+<input type="button" id="btnUpload" value="Upload Files" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnUpload').click(function () {
+    
+                var fileUpload = $("#FileUpload1").get(0);
+                var files = fileUpload.files;
+
+                var fileData = new FormData();
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+                console.log(fileData)
+                $.ajax({
+                    url: '/Image/MultipleImageFileSave',
+                    type: "POST",
+                    contentType: false,
+                    data: fileData,
+                    success: function (result) {
+                        alert(result);
+                    },
+                    error: function (err) {
+                        alert(err.statusText);
+                    }
+                });
+           
+        });
+    });
+</script>

@@ -1,0 +1,19 @@
+﻿@model SortedList<int,string>
+
+@{
+    ViewBag.Title = "Image Gallery";
+}
+
+<h2>Image Gallery</h2>
+
+<div class="image-gallery">
+    @foreach (KeyValuePair<int,string> KVP in Model)
+    {
+        <div class="image-item">
+            <h1>@KVP.Key  -  @KVP.Value</h1>
+            <img src="@Url.Content("~/ImageUploads/" + KVP.Value)" alt="Image" style=" width:10rem; height:8rem; " />
+          <a href="~/ImageUploads/@KVP.Value" class="btn btn-outline-dark" download="@KVP.Value">Download</a>
+        </div>
+        <br />
+    }
+</div>
